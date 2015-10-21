@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard IoT</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/extensions.css?v=2" rel="stylesheet">
+    <link href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    
+    <link href="css/jquery.datetimepicker.css" rel="stylesheet">
+    <link href="css/rickshaw/rickshaw.min.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!--<script>
+        $(function() {
+            $("#historicStarts" ).datetimepicker({ onShow:function( ct ){
+                 this.setOptions({ maxDate: new Date() })
+             }});
+            $("#historicEnds" ).datetimepicker({ maxDate: new Date()});
+            $("#historicTopRange").spinner({min : 0, max : 100, step : 1}).on('input', function () {
+                var val = this.value,
+                $this = $(this),
+                max = $this.spinner('option', 'max'),
+                min = $this.spinner('option', 'min');
+                if (!val.match(/^\d+$/)) 
+                val = 0;
+                this.value = val > max ? max : val < min ? min : val;
+            });
+            $("#historicTopRange").spinner("value",10); // set the default to 100
+        });
+    </script>-->
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    
+                </button>
+                <a class="navbar-brand" href="index.html">Dashboard IBM IoT</a>
+            </div>
+            <!-- Top Menu Items -->
+            
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Real Time Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts - Historical data (Template)</a>
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables (Template)</a>
+                    </li>
+                    <li>
+                        <a href="grid.html"><i class="fa fa-fw fa-wrench"></i> Grid (Template)</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown (Template)<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="#">Dropdown Item (Template)</a>
+                            </li>
+                            <li>
+                                <a href="#">Dropdown Item (Template)</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page (Template)</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Real Time Charts</small>
+                        </h1>
+                        
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-spinner fa-spin fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div id= "accelX_val" class="huge"></div>
+                                        <div>Accel X</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-spinner fa-spin fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div id= "accelY_val" class="huge"></div>
+                                        <div>Accel Y</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-spinner fa-spin fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div id= "accelZ_val" class="huge"></div>
+                                        <div>Accel Z</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-line-chart fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div id= "temp_val" class="huge"></div>
+                                        <div>Temperature</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                      <div id="content"></div>
+                      <form id="side_panel" class="iotsidepanel">
+                        <div class="devices">
+                          <h1 class="devicesText">Device:</h1>
+                          <select id="deviceslist" class="devicesSelect">
+                            <option value="">Choose a device</option>
+                          </select>
+                        </div>
+                        <section style="visibility: hidden">
+                          <div style="visibility: hidden" id="visualtype">
+                            <input style="visibility: hidden" id="realtime" type="radio" value="realtime" name="visualtype" checked=""/>
+                        </div>
+                          </div>
+                          <div style="visibility: hidden" id="renderer_form" class="toggler">
+                            <input style="visibility: hidden" id="line" type="radio" name="renderer" value="line" checked=""/>
+                          </div>
+                          <div style="visibility: hidden" id="offset_form" class="iotoptionpanel">
+                            <input style="visibility: hidden" id="value" type="radio" name="offset" value="value" checked=""/>
+                          </div>
+                          <div  style="visibility: hidden" id="interpolation_form" class="iotoptionpanel">
+                            <input style="visibility: hidden" id="cardinal" type="radio" name="interpolation" value="cardinal" checked=""/>
+                          </div>
+                      </form>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> LiveData</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="legend"></div>
+                                <div id="chart_container">
+                                  <div id="chart">
+                                    <div class="iotdashboardtext">All devices currently in your organization are available in the Devices Dropdown.</div><br/>
+                                    <div class="iotdashboardtext">Select one to start visualizing device data.</div><img src="images/quickstartThing.svg" alt="Thing" align="middle" class="iotimages"/><img src="images/quickstartChart.svg" alt="Chart" align="middle" class="iotimages"/>
+                                  </div>
+                                  <div id="timeline"></div>
+                                  <div id="preview"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-signal fa-fw"></i> Potentometer 1</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="chart-gauge"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-arrows fa-fw"></i> Something</h3>
+                            </div>
+                            <div class="panel-body">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-twitter fa-fw"></i> Tweeter feed</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <!--twitter feed-->
+          
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script type= "text/javascript" src="js/plugins/morris/raphael.min.js"></script>
+    <script type= "text/javascript" src="js/plugins/morris/morris.min.js"></script>
+    <script type= "text/javascript" src="js/plugins/morris/morris-data.js"></script>
+    <script type= "text/javascript" src="js/d3/d3.v3.js"></script>
+    <script type= "text/javascript" src="js/rickshaw/rickshaw.min.js"></script>
+    <script type= "text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type= "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js'"></script>
+    <script type= "text/javascript" src="js/jquery.datetimepicker.min.js"></script>
+    <script type= "text/javascript" src="js/rickshaw/extensions.js"></script>
+    <script type= "text/javascript" src="js/realtime/mqttws31.js"></script>
+    <script type= "text/javascript" src="js/realtime/realtime.js"></script>
+    <script type= "text/javascript" src="js/realtime/realtimeGraph.js"></script>
+    <script type= "text/javascript" src="js/historian/historian.js"></script>
+    <script type= "text/javascript" src="js/historian/historianGraph.js"></script>
+    <script type= "text/javascript" src="js/uicontroller.js"></script>
+    <script type= "text/javascript" src="js/realtime/gauge.js"></script>
+
+
+
+
+
+</body>
+
+</html>
