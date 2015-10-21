@@ -17,7 +17,7 @@ applications:
   memory: 128M
 
 4. Connect to IoT Foundation and generate an API key and token for your organization, save these credentials somewhere
-5. Write your credentials in the app.js file and in routes/dashboard.js
+5. Write your credentials in the app.js file , routes/api.js file and in routes/dashboard.js file
 6. Connect to Bluemix:
 
 		cf api https://api.ng.bluemix.net

@@ -19,8 +19,10 @@ var pathSeperator ='/';
 var base_path='/api/v0001';
 var historian_path =  base_path + pathSeperator + 'historian';
 var getdevices_path = 'devices';
-var api_key = "a-o4w8nu-lndo9j3npg";
-var auth_token= "bxUAOEqzt&o?0k2oBC";
+
+// ADD YOUR API KEY TOKEN
+var api_key = "";
+var auth_token= "";
 
 //Org APIs
 // api to get info of a org
